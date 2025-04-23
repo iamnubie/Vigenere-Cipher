@@ -1,5 +1,10 @@
 package model;
 
+import javax.swing.*;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class VigenereModel {
     private String keyword;
 
@@ -35,7 +40,7 @@ public class VigenereModel {
                 result.append(p);
             }
         }
-        return result.toString();
+        return result.toString().toUpperCase();
     }
 
     public String decrypt(String text) {
@@ -52,6 +57,47 @@ public class VigenereModel {
                 result.append(c);
             }
         }
-        return result.toString();
+        return result.toString().toUpperCase();
+    }
+
+    public void writeToFile(String input, String output) {
+        try {
+            BufferedWriter bw = null;
+            String fileName = "D:\\dulieu.txt";
+//            String s = eCipherTextField.getText(); // Sửa đúng tên biến
+
+            bw = new BufferedWriter(new FileWriter(fileName));
+            bw.write("\"" + input + "\" to \"" + output + "\" with keyword \"" + this.keyword + "\"");
+            bw.close();
+
+            JOptionPane.showMessageDialog(null, "Đã Ghi File Thành Công !!!");
+        } catch (IOException ex) {
+            ex.printStackTrace(); // Nếu chưa khai báo Logger, dùng cách này
+        }
+    }
+
+    public void readFromFile() {
+        try {
+            BufferedReader br = null;
+            String fileName = "D:\\dulieu.txt";
+
+            br = new BufferedReader(new FileReader(fileName));
+            StringBuffer sb = new StringBuffer();
+
+            JOptionPane.showMessageDialog(null, "Đã Đọc File Thành Công !!!");
+
+            char[] ca = new char[5];
+            while (br.ready()) {
+                int len = br.read(ca);
+                sb.append(ca, 0, len);
+            }
+
+            br.close();
+            System.out.println("Dữ Liệu là: " + sb);
+//            eCipherTextField.setText(sb.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+
+        }
     }
 }

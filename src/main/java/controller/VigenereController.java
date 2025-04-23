@@ -15,6 +15,8 @@ public class VigenereController implements ActionListener {
         this.view = view;
         this.view.addEncryptListener(this);
         this.view.addDecryptListener(this);
+        this.view.addWriteFileListener(this);
+        this.view.addReadFileListener(this);
     }
 
     @Override
@@ -29,6 +31,10 @@ public class VigenereController implements ActionListener {
         } else if (command.equals("Decrypt")) {
             String decrypted = model.decrypt(view.getInputText());
             view.setOutputText(decrypted);
+        } else if (command.equals("Write File")) {
+            model.writeToFile(view.getInputText(), view.getOutputText());
+        } else if (command.equals("Read File")) {
+            model.readFromFile();
         }
     }
 }

@@ -11,13 +11,15 @@ public class VigenereView extends JFrame {
     private JTextField keyField;
     public JButton encBtn;
     public JButton decBtn;
+    public JButton writeButton;
+    public JButton readButton;
 
     public VigenereView() {
         setTitle("Thuật Toán Mã Hóa Vigenere Cipher");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(450, 300);
+        setSize(450, 350);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4, 1));
+        setLayout(new GridLayout(5, 1));
 
         // Ô nhập văn bản gốc
         inputText = new JTextArea(3, 30);
@@ -46,10 +48,17 @@ public class VigenereView extends JFrame {
         outputPanel.add(new JLabel("Ciphertext :"));
         outputPanel.add(outputScroll);
 
+        writeButton = new JButton("Ghi file");
+        readButton = new JButton("Đọc file");
+        JPanel fileButtonPanel = new JPanel();
+        fileButtonPanel.add(writeButton);
+        fileButtonPanel.add(readButton);
+
         add(inputPanel);
         add(keyPanel);
         add(buttonPanel);
         add(outputPanel);
+        add(fileButtonPanel);
 
         setResizable(false);
     }
@@ -58,6 +67,10 @@ public class VigenereView extends JFrame {
 
     public String getInputText() {
         return inputText.getText();
+    }
+
+    public String getOutputText() {
+        return outputText.getText();
     }
 
     public String getKey() {
@@ -76,5 +89,15 @@ public class VigenereView extends JFrame {
     public void addDecryptListener(ActionListener listener) {
         decBtn.addActionListener(listener);
         decBtn.setActionCommand("Decrypt");
+    }
+
+    public void addWriteFileListener(ActionListener listener) {
+        writeButton.addActionListener(listener);
+        writeButton.setActionCommand("Write File");
+    }
+
+    public void addReadFileListener(ActionListener listener) {
+        readButton.addActionListener(listener);
+        readButton.setActionCommand("Read File");
     }
 }
